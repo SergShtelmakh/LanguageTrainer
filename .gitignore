@@ -71,3 +71,9 @@ Thumbs.db
 *.dll
 *.exe
 
+# Video files
+*.avi
+
+# Subtitles
+*.srt
+
