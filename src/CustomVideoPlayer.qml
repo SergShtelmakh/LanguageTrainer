@@ -14,15 +14,13 @@ Item {
 		source: player
 	}
 
-	MouseArea{
-		id: mouse
-		anchors.fill: root
-		onClicked: {
-			if (player.playbackState != MediaPlayer.PlayingState) {
-				player.play();
-			} else {
-				player.pause();
-			}
-		}
+	PlayerControls {
+		id: controls
+
+		anchors.bottom: root.bottom
+		anchors.left: root.left
+		anchors.right: root.right
+
+		source: player
 	}
 }

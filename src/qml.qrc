@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>CustomVideoPlayer.qml</file>
+        <file>PlayerControls.qml</file>
+        <file>PlayerControlsForm.ui.qml</file>
     </qresource>
 </RCC>
