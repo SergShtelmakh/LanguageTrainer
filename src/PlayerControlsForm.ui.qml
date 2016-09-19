@@ -11,12 +11,23 @@ Item {
 	property alias __stopButton: stopButton
 	property alias __timeLabel: timeLabel
 	property alias __timeSlider: timeSlider
+	property alias __volumeSlider: volumeSlider
 
 	width: 800
-	height: 50
+	height: 500
 
 	ColumnLayout {
+		id: columnLayout1
 		anchors.fill: root
+
+		Slider {
+			id: volumeSlider
+			Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+			Layout.margins: 30
+			Layout.fillHeight: true
+			style: SliderStyle {}
+			orientation: Qt.Vertical
+		}
 
 		RowLayout {
 			Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
@@ -40,7 +51,9 @@ Item {
 			}
 		}
 
+
 		RowLayout {
+			Layout.margins: 30
 			Label {
 				id: timeLabel
 				width: 50
@@ -58,5 +71,6 @@ Item {
 				Layout.fillWidth: true
 			}
 		}
+
 	}
 }

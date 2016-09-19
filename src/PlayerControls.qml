@@ -1,7 +1,6 @@
 import QtQuick 2.4
 import QtMultimedia 5.5
 
-
 PlayerControlsForm {
 	id: root
 
@@ -33,6 +32,7 @@ PlayerControlsForm {
 			source.seek(__timeSlider.value)
 		}
 	}
+	__volumeSlider.onValueChanged: source.volume = __volumeSlider.value
 
 	onSourceChanged: {
 		if (source) {
@@ -41,6 +41,7 @@ PlayerControlsForm {
 			__timeSlider.maximumValue = 1324000;
 			__timeSlider.stepSize = 1;
 			__timeSlider.value = 0;
+			__volumeSlider.value = source.volume
 		}
 	}
 }
