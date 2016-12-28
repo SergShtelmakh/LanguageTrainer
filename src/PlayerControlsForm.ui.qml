@@ -18,6 +18,7 @@ Item {
 
 	ColumnLayout {
 		id: columnLayout1
+		spacing: 0
 		anchors.fill: root
 
 		Slider {
@@ -30,7 +31,8 @@ Item {
 		}
 
 		RowLayout {
-			Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+			transformOrigin: Item.Center
+			Layout.alignment: Qt.AlignHCenter | Qt.AlignBottom
 			Layout.fillWidth: true
 			spacing: 50
 

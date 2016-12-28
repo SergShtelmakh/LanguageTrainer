@@ -1,12 +1,15 @@
 import QtQuick 2.0
 import QtMultimedia 5.5
+import QtQuick.Layouts 1.1
+
+import QmlVlc 0.1
 
 Item {
 	id: root
 
-	MediaPlayer {
+	VlcPlayer {
 		id: player
-		source: "D:/Projects/LanguageTrainerVideoPlayer/testData/test.avi"
+		mrl: "file:///D:/Projects/LanguageTrainerVideoPlayer/testData/test.avi"
 	}
 
 	VideoOutput {
@@ -15,12 +18,7 @@ Item {
 	}
 
 	PlayerControls {
-		id: controls
-
-		anchors.bottom: root.bottom
-		anchors.left: root.left
-		anchors.right: root.right
-
+		anchors.fill: root
 		source: player
 	}
 }

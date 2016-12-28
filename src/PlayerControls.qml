@@ -1,10 +1,12 @@
 import QtQuick 2.4
 import QtMultimedia 5.5
 
+import QmlVlc 0.1
+
 PlayerControlsForm {
 	id: root
 
-	property MediaPlayer source
+	property VlcPlayer source
 
 	function createTimeMark(position) {
 		var seconds = Math.round(position / 1000);
@@ -29,7 +31,7 @@ PlayerControlsForm {
 	__stopButton.onClicked: source.stop()
 	__timeSlider.onValueChanged: {
 		if (__timeSlider.pressed) {
-			source.seek(__timeSlider.value)
+			source.position = __timeSlider.value;
 		}
 	}
 	__volumeSlider.onValueChanged: source.volume = __volumeSlider.value
