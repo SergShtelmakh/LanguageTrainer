@@ -6,7 +6,11 @@ QT += qml quick multimedia
 
 CONFIG += c++11
 
-SOURCES += src/main.cpp
+HEADERS += \
+    src/VlcPlayerEventHandler.h
+
+SOURCES += src/main.cpp \
+    src/VlcPlayerEventHandler.cpp
 
 RESOURCES += src/qml.qrc
 

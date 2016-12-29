@@ -21,4 +21,6 @@ Item {
 		anchors.fill: root
 		source: player
 	}
+
+	Component.onCompleted: vlcPlayerEventHandler.player = player
 }
