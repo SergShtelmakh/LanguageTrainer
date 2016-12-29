@@ -60,6 +60,7 @@ Item {
 				id: timeLabel
 				width: 50
 				text: qsTr("00:00:00")
+				color: "white"
 				Layout.minimumHeight: 20
 				Layout.minimumWidth: 60
 				Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter

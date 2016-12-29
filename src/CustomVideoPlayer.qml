@@ -13,13 +13,15 @@ Item {
 	}
 
 	VideoOutput {
-		anchors.fill: root
-		source: player
-	}
+		id: output
 
-	PlayerControls {
 		anchors.fill: root
 		source: player
+
+		PlayerControls {
+			anchors.fill: parent
+			source: output.source
+		}
 	}
 
 	Component.onCompleted: vlcPlayerEventHandler.player = player
