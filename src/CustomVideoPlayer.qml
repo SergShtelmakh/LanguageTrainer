@@ -10,6 +10,7 @@ Item {
 	VlcPlayer {
 		id: player
 		mrl: "file:///D:/Projects/LanguageTrainerVideoPlayer/testData/test.avi"
+//		mrl: "http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_stereo.avi"
 	}
 
 	VideoOutput {

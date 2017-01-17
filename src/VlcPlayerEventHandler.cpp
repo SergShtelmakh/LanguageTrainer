@@ -71,11 +71,11 @@ void VlcPlayerEventHandler::connetToPlayer()
 	};
 
 	const auto onTimeChanged = [](double time) {
-		qDebug() << "Time changed" << time;
+//		qDebug() << "Time changed" << time;
 	};
 
 	const auto onPositionChanged = [](float position) {
-		qDebug() << "Position changed" << position;
+//		qDebug() << "Position changed" << position;
 	};
 
 	const auto onSeekableChanged = [](bool seekable) {
@@ -90,8 +90,8 @@ void VlcPlayerEventHandler::connetToPlayer()
 		qDebug() << "Length changed" << length;
 	};
 
-	const auto onVolumeChanged = [] {
-		qDebug() << "Volume changed";
+	const auto onVolumeChanged = [this] {
+		qDebug() << "Volume changed" << m_player->get_volume();
 	};
 
 	for (const auto &con : m_playerConnections) {

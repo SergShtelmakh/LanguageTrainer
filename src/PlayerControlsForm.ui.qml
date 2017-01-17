@@ -6,19 +6,20 @@ import QtQuick.Controls.Styles 1.4
 Item {
 	id: root
 
-	property alias __playButton: playButton
-	property alias __pauseButton: pauseButton
-	property alias __stopButton: stopButton
-	property alias __timeLabel: timeLabel
-	property alias __timeSlider: timeSlider
-	property alias __volumeSlider: volumeSlider
+	property alias playButton: playButton
+	property alias pauseButton: pauseButton
+	property alias stopButton: stopButton
+
+	property alias timeLabel: timeLabel
+	property alias timeSlider: timeSlider
+	property alias volumeSlider: volumeSlider
 
 	width: 800
 	height: 500
 
 	ColumnLayout {
-		id: columnLayout1
-		spacing: 0
+		id: columnLayout
+
 		anchors.fill: root
 
 		Slider {
@@ -26,6 +27,8 @@ Item {
 			Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
 			Layout.margins: 30
 			Layout.fillHeight: true
+			maximumValue: 100
+			minimumValue: 0
 			style: SliderStyle {}
 			orientation: Qt.Vertical
 		}
