@@ -5,121 +5,136 @@ VlcPlayerEventHandler::VlcPlayerEventHandler(QObject *parent)
 {
 }
 
-QmlVlcPlayer *VlcPlayerEventHandler::player() const
+QmlVlcPlayer *VlcPlayerEventHandler::mainPlayer() const
 {
-	return m_player.data();
+	return m_mainPlayer.data();
 }
 
-void VlcPlayerEventHandler::setPlayer(QmlVlcPlayer *player)
+void VlcPlayerEventHandler::setMainPlayer(QmlVlcPlayer *player)
 {
-	if (m_player != player) {
-		m_player = player;
-		emit playerChanged(player);
+	if (m_mainPlayer != player) {
+		if (m_mainPlayer) {
+			m_mainPlayer->disconnect();
+		}
 
-		connetToPlayer();
+		m_mainPlayer = player;
+		m_mainPlayer->setObjectName("Main player");
+		connectToPlayer(m_mainPlayer);
+		emit mainPlayerChanged(player);
 	}
 }
 
-void VlcPlayerEventHandler::connetToPlayer()
+QmlVlcPlayer *VlcPlayerEventHandler::secondaryPlayer() const
 {
-	const auto onMediaChanged = [] {
-		qDebug() << "Media changed";
-	};
+	return m_secondaryPlayer.data();
+}
 
-	const auto onNothingSpecial = [] {
-		qDebug() << "Nothing special";
-	};
+void VlcPlayerEventHandler::setSecondaryPlayer(QmlVlcPlayer *player)
+{
+	if (m_secondaryPlayer != player) {
+		if (m_secondaryPlayer) {
+			m_secondaryPlayer->disconnect();
+		}
 
-	const auto onOpening = [] {
-		qDebug() << "Opening";
-	};
-
-	const auto onBuffering = [](float p) {
-		qDebug() << "Buffering" << p;
-	};
-
-	const auto onPlaying = [] {
-		qDebug() << "Playing";
-	};
-
-	const auto onPaused = [] {
-		qDebug() << "Paused";
-	};
-
-	const auto onForward = [] {
-		qDebug() << "Forward";
-	};
-
-	const auto onBackward = [] {
-		qDebug() << "Backward";
-	};
-
-	const auto onEncounteredError = [] {
-		qDebug() << "Encountered error";
-	};
-
-	const auto onEndReached = [] {
-		qDebug() << "End reached";
-	};
-
-	const auto onStopped = [] {
-		qDebug() << "Stopped";
-	};
-
-	const auto onTitleChanged = [] {
-		qDebug() << "Title changed";
-	};
-
-	const auto onTimeChanged = [](double time) {
-//		qDebug() << "Time changed" << time;
-	};
-
-	const auto onPositionChanged = [](float position) {
-//		qDebug() << "Position changed" << position;
-	};
-
-	const auto onSeekableChanged = [](bool seekable) {
-		qDebug() << "Seekable changed" << seekable;
-	};
-
-	const auto onPausableChanged = [](bool pausable) {
-		qDebug() << "Pausable changed" << pausable;
-	};
-
-	const auto onLengthChanged = [](double length) {
-		qDebug() << "Length changed" << length;
-	};
-
-	const auto onVolumeChanged = [this] {
-		qDebug() << "Volume changed" << m_player->get_volume();
-	};
-
-	for (const auto &con : m_playerConnections) {
-		disconnect(con);
+		m_secondaryPlayer = player;
+		m_secondaryPlayer->setObjectName("Secondary player");
+		connectToPlayer(m_secondaryPlayer);
+		emit secondaryPlayerChanged(player);
 	}
-	m_playerConnections.clear();
+}
 
-	if (m_player.isNull()) {
-		return;
-	}
+void VlcPlayerEventHandler::connectToPlayer(const QPointer<QmlVlcPlayer> &player)
+{
+	const auto onMediaChanged = [player] {
+		qDebug() << player->objectName() << "Media changed";
+	};
 
-	m_playerConnections
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerMediaChanged, this, onMediaChanged)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerNothingSpecial, this, onNothingSpecial)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerOpening, this, onOpening)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerBuffering, this, onBuffering)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerPlaying, this, onPlaying)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerPaused, this, onPaused)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerForward, this, onForward)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerBackward, this, onBackward)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerEncounteredError, this, onEncounteredError)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerEndReached, this, onEndReached)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerStopped, this, onStopped)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerTitleChanged, this, onTitleChanged)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerTimeChanged, this, onTimeChanged)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerPositionChanged, this, onPositionChanged)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerSeekableChanged, this, onSeekableChanged)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerPausableChanged, this, onPausableChanged)
-			<< connect(m_player, &QmlVlcPlayer::mediaPlayerLengthChanged, this, onLengthChanged)
-			<< connect(m_player, &QmlVlcPlayer::volumeChanged, this, onVolumeChanged);
+	const auto onNothingSpecial = [player] {
+		qDebug() << player->objectName() << "Nothing special";
+	};
+
+	const auto onOpening = [player] {
+		qDebug() << player->objectName() << "Opening";
+	};
+
+	const auto onBuffering = [player](float p) {
+		qDebug() << player->objectName() << "Buffering" << p;
+	};
+
+	const auto onPlaying = [player] {
+		qDebug() << player->objectName() << "Playing";
+	};
+
+	const auto onPaused = [player] {
+		qDebug() << player->objectName() << "Paused";
+	};
+
+	const auto onForward = [player] {
+		qDebug() << player->objectName() << "Forward";
+	};
+
+	const auto onBackward = [player] {
+		qDebug() << player->objectName() << "Backward";
+	};
+
+	const auto onEncounteredError = [player] {
+		qDebug() << player->objectName() << "Encountered error";
+	};
+
+	const auto onEndReached = [player] {
+		qDebug() << player->objectName() << "End reached";
+	};
+
+	const auto onStopped = [player] {
+		qDebug() << player->objectName() << "Stopped";
+	};
+
+	const auto onTitleChanged = [player] {
+		qDebug() << player->objectName() << "Title changed";
+	};
+
+	const auto onTimeChanged = [player](double time) {
+//		qDebug() << player->objectName() << "Time changed" << time;
+	};
+
+	const auto onPositionChanged = [player](float position) {
+//		qDebug() << player->objectName() << "Position changed" << position;
+	};
+
+	const auto onSeekableChanged = [player](bool seekable) {
+		qDebug() << player->objectName() << "Seekable changed" << seekable;
+	};
+
+	const auto onPausableChanged = [player](bool pausable) {
+		qDebug() << player->objectName() << "Pausable changed" << pausable;
+	};
+
+	const auto onLengthChanged = [player](double length) {
+		qDebug() << player->objectName() << "Length changed" << length;
+	};
+
+	const auto onVolumeChanged = [player] {
+		qDebug() << player->objectName() << "Volume changed" << player->get_volume();
+	};
+
+//	m_mainPlayer->get_audio()->set_track(2);
+
+	connect(player, &QmlVlcPlayer::mediaPlayerMediaChanged, this, onMediaChanged);
+	connect(player, &QmlVlcPlayer::mediaPlayerNothingSpecial, this, onNothingSpecial);
+	connect(player, &QmlVlcPlayer::mediaPlayerOpening, this, onOpening);
+	connect(player, &QmlVlcPlayer::mediaPlayerBuffering, this, onBuffering);
+	connect(player, &QmlVlcPlayer::mediaPlayerPlaying, this, onPlaying);
+	connect(player, &QmlVlcPlayer::mediaPlayerPaused, this, onPaused);
+	connect(player, &QmlVlcPlayer::mediaPlayerForward, this, onForward);
+	connect(player, &QmlVlcPlayer::mediaPlayerBackward, this, onBackward);
+	connect(player, &QmlVlcPlayer::mediaPlayerEncounteredError, this, onEncounteredError);
+	connect(player, &QmlVlcPlayer::mediaPlayerEndReached, this, onEndReached);
+	connect(player, &QmlVlcPlayer::mediaPlayerStopped, this, onStopped);
+	connect(player, &QmlVlcPlayer::mediaPlayerTitleChanged, this, onTitleChanged);
+	connect(player, &QmlVlcPlayer::mediaPlayerTimeChanged, this, onTimeChanged);
+	connect(player, &QmlVlcPlayer::mediaPlayerPositionChanged, this, onPositionChanged);
+	connect(player, &QmlVlcPlayer::mediaPlayerSeekableChanged, this, onSeekableChanged);
+	connect(player, &QmlVlcPlayer::mediaPlayerPausableChanged, this, onPausableChanged);
+	connect(player, &QmlVlcPlayer::mediaPlayerLengthChanged, this, onLengthChanged);
+	connect(player, &QmlVlcPlayer::volumeChanged, this, onVolumeChanged);
 }

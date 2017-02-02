@@ -6,22 +6,28 @@
 
 class VlcPlayerEventHandler : public QObject
 {
-	Q_PROPERTY(QmlVlcPlayer * player READ player WRITE setPlayer NOTIFY playerChanged)
+	Q_PROPERTY(QmlVlcPlayer * mainPlayer READ mainPlayer WRITE setMainPlayer NOTIFY mainPlayerChanged)
+	Q_PROPERTY(QmlVlcPlayer * secondaryPlayer READ secondaryPlayer WRITE setSecondaryPlayer NOTIFY secondaryPlayerChanged)
 
 	Q_OBJECT
 public:
 	explicit VlcPlayerEventHandler(QObject *parent = 0);
 
-	QmlVlcPlayer *player() const;
-	void setPlayer(QmlVlcPlayer *player);
+	QmlVlcPlayer *mainPlayer() const;
+	void setMainPlayer(QmlVlcPlayer *mainPlayer);
+
+	QmlVlcPlayer *secondaryPlayer() const;
+	void setSecondaryPlayer(QmlVlcPlayer *secondaryPlayer);
 
 signals:
-	void playerChanged(QmlVlcPlayer *);
+	void mainPlayerChanged(QmlVlcPlayer *);
+	void secondaryPlayerChanged(QmlVlcPlayer *);
 
 private:
-	void connetToPlayer();
+	void connectToPlayer(const QPointer<QmlVlcPlayer> &player);
 
-	QPointer<QmlVlcPlayer> m_player;
+	QPointer<QmlVlcPlayer> m_mainPlayer;
+	QPointer<QmlVlcPlayer> m_secondaryPlayer;
 
 	QList<QMetaObject::Connection> m_playerConnections;
 };

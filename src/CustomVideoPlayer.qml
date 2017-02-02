@@ -7,9 +7,19 @@ import QmlVlc 0.1
 Item {
 	id: root
 
+	property var url: "file:///D:/Projects/LanguageTrainerVideoPlayer/testData/test.avi"
+
 	VlcPlayer {
-		id: player
-		mrl: "file:///D:/Projects/LanguageTrainerVideoPlayer/testData/test.avi"
+		id: mainPlayer
+		mrl: root.url
+//		mrl: "http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_stereo.avi"
+	}
+
+	VlcPlayer {
+		id: secondaryPlayer
+		mrl: root.url
+//		mrl: "file:///D:/Projects/LanguageTrainerVideoPlayer/testData/test.avi"
+
 //		mrl: "http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_stereo.avi"
 	}
 
@@ -17,7 +27,7 @@ Item {
 		id: output
 
 		anchors.fill: root
-		source: player
+		source: mainPlayer
 
 		PlayerControls {
 			anchors.fill: parent
@@ -25,5 +35,8 @@ Item {
 		}
 	}
 
-	Component.onCompleted: vlcPlayerEventHandler.player = player
+	Component.onCompleted: {
+		vlcPlayerEventHandler.mainPlayer = mainPlayer;
+		vlcPlayerEventHandler.secondaryPlayer = secondaryPlayer;
+	}
 }
