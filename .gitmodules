@@ -1,3 +1,6 @@
 [submodule "3rdParty/qmlVlc"]
 	path = 3rdParty/qmlVlc
 	url = https://github.com/RSATom/QmlVlc.git
+[submodule "libs/Subtitle-lib"]
+	path = libs/Subtitle-lib
+	url = https://github.com/SergShtelmakh/Subtitle-lib.git
