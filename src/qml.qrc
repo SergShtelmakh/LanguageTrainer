@@ -4,5 +4,6 @@
         <file>CustomVideoPlayer.qml</file>
         <file>PlayerControls.qml</file>
         <file>PlayerControlsForm.ui.qml</file>
+        <file>SettingsWindow.qml</file>
     </qresource>
 </RCC>

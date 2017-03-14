@@ -2,7 +2,7 @@
 
 #include <QObject>
 
-#include <3rdParty/qmlVlc/QmlVlcPlayer.h>
+#include "QmlVlcPlayer.h"
 
 class VlcPlayerEventHandler : public QObject
 {
@@ -18,6 +18,9 @@ public:
 
 	QmlVlcPlayer *secondaryPlayer() const;
 	void setSecondaryPlayer(QmlVlcPlayer *secondaryPlayer);
+
+public slots:
+	void loadSubtitles(const QUrl &url);
 
 signals:
 	void mainPlayerChanged(QmlVlcPlayer *);

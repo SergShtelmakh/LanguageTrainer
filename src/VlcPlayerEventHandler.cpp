@@ -43,6 +43,10 @@ void VlcPlayerEventHandler::setSecondaryPlayer(QmlVlcPlayer *player)
 	}
 }
 
+void VlcPlayerEventHandler::loadSubtitles(const QUrl &url)
+{
+}
+
 void VlcPlayerEventHandler::connectToPlayer(const QPointer<QmlVlcPlayer> &player)
 {
 	const auto onMediaChanged = [player] {
