@@ -17,6 +17,7 @@ find_package(Qt5Qml REQUIRED)
 # 3rd party libs
 add_subdirectory(3rdParty/qmlVlc)
 include_directories(3rdParty/qmlVlc)
+include_directories(3rdParty/qmlVlc/libvlc_wrapper/libvlc-sdk/include)
 
 # libs
 add_subdirectory(libs/Subtitle-lib)
@@ -31,10 +32,11 @@ set(headers
     )
 
 add_library(languageTrainerLib STATIC ${source} ${headers})
-target_link_libraries(languageTrainerLib Qt5::Core Qt5::Gui Qt5::Qml subtitlesLib)
+target_link_libraries(languageTrainerLib Qt5::Core Qt5::Gui Qt5::Qml subtitlesLib QmlVlc)
 
-#qt5_add_binary_resources(bin_res src/qml.qrc)
+# TODO Fix resources
+#qt5_add_binary_resources(bin_res "src/qml.qrc")
 #add_dependencies(languageTrainerLib bin_res)
 
-add_executable(LanguageTrainer src/main.cpp)
+add_executable(LanguageTrainer src/main.cpp  src/qml.qrc)
 target_link_libraries(LanguageTrainer languageTrainerLib)

@@ -4,7 +4,7 @@
 
 #include "VlcPlayerEventHandler.h"
 
-#include "QmlVlc.h"
+#include <3rdParty/qmlVlc/QmlVlc.h>
 
 int main(int argc, char *argv[])
 {

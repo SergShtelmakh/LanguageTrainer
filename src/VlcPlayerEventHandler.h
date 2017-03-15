@@ -2,7 +2,7 @@
 
 #include <QObject>
 
-#include "QmlVlcPlayer.h"
+#include <3rdParty/qmlVlc/QmlVlcPlayer.h>
 
 class VlcPlayerEventHandler : public QObject
 {
