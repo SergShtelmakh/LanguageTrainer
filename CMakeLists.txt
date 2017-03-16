@@ -6,6 +6,7 @@ set(PROJECT_VERSION "1.0")
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y")
 set(CXX_STANDARD 14)
@@ -23,20 +24,17 @@ include_directories(3rdParty/qmlVlc/libvlc_wrapper/libvlc-sdk/include)
 add_subdirectory(libs/Subtitle-lib)
 
 #
+# TODO move to subdirectory
 set(source
-    src/VlcPlayerEventHandler.cpp
+    src/core/VlcPlayerEventHandler.cpp
     )
 
 set(headers
-    src/VlcPlayerEventHandler.h
+    src/core/VlcPlayerEventHandler.h
     )
 
 add_library(languageTrainerLib STATIC ${source} ${headers})
 target_link_libraries(languageTrainerLib Qt5::Core Qt5::Gui Qt5::Qml subtitlesLib QmlVlc)
-
-# TODO Fix resources
-#qt5_add_binary_resources(bin_res "src/qml.qrc")
-#add_dependencies(languageTrainerLib bin_res)
 
 add_executable(LanguageTrainer src/main.cpp  src/qml.qrc)
 target_link_libraries(LanguageTrainer languageTrainerLib)

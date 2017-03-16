@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>CustomVideoPlayer.qml</file>
-        <file>PlayerControls.qml</file>
-        <file>PlayerControlsForm.ui.qml</file>
-        <file>SettingsWindow.qml</file>
+        <file>qml/CustomVideoPlayer.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/PlayerControls.qml</file>
+        <file>qml/PlayerControlsForm.ui.qml</file>
+        <file>qml/SettingsWindow.qml</file>
     </qresource>
 </RCC>

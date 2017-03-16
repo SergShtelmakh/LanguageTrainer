@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "VlcPlayerEventHandler.h"
+#include "core/VlcPlayerEventHandler.h"
 
 #include <3rdParty/qmlVlc/QmlVlc.h>
 
@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
 	VlcPlayerEventHandler eventHandler;
 	engine.rootContext()->setContextProperty("vlcPlayerEventHandler", &eventHandler);
 
-	engine.load(QUrl(QLatin1String("qrc:/main.qml")));
-	engine.load(QUrl(QLatin1String("qrc:/SettingsWindow.qml")));
+	engine.load(QUrl(QLatin1String("qrc:/qml/main.qml")));
+	engine.load(QUrl(QLatin1String("qrc:/qml/SettingsWindow.qml")));
 
 	return app.exec();
 }
